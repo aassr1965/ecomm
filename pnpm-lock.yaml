@@ -77,6 +77,9 @@ importers:
       next-auth:
         specifier: 5.0.0-beta.26
         version: 5.0.0-beta.26(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       react:
         specifier: ^19.0.0
         version: 19.1.0
