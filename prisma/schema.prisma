@@ -1,0 +1,62 @@
+// This is your Prisma schema file
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String    @unique
+  password      String?
+  image         String?
+  emailVerified Boolean   @default(false)
+  role          String    @default("User")
+  address       Address?
+  paymentMethod String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+type Address {
+  fullName   String
+  street     String
+  city       String
+  province   String
+  postalCode String
+  country    String
+  phone      String
+}
+
+model Product {
+  id                 String             @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  slug               String             @unique
+  category           String
+  images             String[]
+  brand              String
+  description        String?
+  price             Float
+  listPrice         Float
+  countInStock      Int
+  tags              String[]           @default(["new arrival"])
+  colors            String[]           @default(["White", "Red", "Black"])
+  sizes             String[]           @default(["S", "M", "L"])
+  avgRating         Float              @default(0)
+  numReviews        Int                @default(0)
+  ratingDistribution RatingCount[]
+  numSales          Int                @default(0)
+  isPublished       Boolean            @default(false)
+  reviews           String[]           @db.ObjectId // References to Review IDs
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+}
+
+type RatingCount {
+  rating Int
+  count  Int
+}
